@@ -13,7 +13,11 @@ def get_password():
 
 def main():
     
-	pass
+    username, password = get_password()
+    tweet = compose_tweet.compose()
+    bot = TheBot(username, password)
+    bot .
+
 
     
     

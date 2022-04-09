@@ -9,18 +9,18 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.utils import ChromeType
 
 
-DRIVER = None
-WAIT = None
+class TheBot():
+    
+
+    twitter_url = "https://twitter.com/login"
 
 
-def get_password():
-    '''Get pickled password and username'''
-    with open('login.pickle', 'rb') as f:
-        login = pickle.load(f)
+    def __init__(self, username, password)
 
-    username = login['username']
-    password = login['password']
-    return username, password
+    self.driver = driver
+    self.wait = wait
+    self.username = username
+    self.password = password
 
 
 #chrome_options.add_argument('--no-sandbox')
@@ -29,40 +29,34 @@ def get_password():
 #chrome_options.add_argument('--disable-software-rasterizer')
 
 
-def setup_webdriver():
+def setup_webdriver(self):
     '''Setup webdriver, download chromedriver'''
-    global DRIVER
-    global WAIT
-    # options = Options()
-    # options.add_argument("disable-gpu")
 
-    DRIVER = webdriver.Chrome(
+    self.driver = webdriver.Chrome(
             service=Service(
                 ChromeDriverManager(
                     chrome_type=ChromeType.CHROMIUM).install()))
-   # Set wait
-    WAIT = WebDriverWait(DRIVER, 10)
+    #  Set wait
+    self.wait = WebDriverWait(DRIVER, 10)
 
 
 
-def login_twitter():
+def login_twitter(self):
     '''Login to twitter account'''
 
-    tweeter_url = "https://twitter.com/login"
-    DRIVER.get(tweeter_url)
+    
+    self.driver.get(twitter_url)
 
-    # Get username and password
-    username, password = get_password()
-
+ 
     # Input username
     username_input = WAIT.until(ec.visibility_of_element_located((By.NAME,
         "session[username_or_email]")))
-    username_input.send_keys(username)
+    username_input.send_keys(self.username)
 
     # Input password
     password_input = WAIT.until(ec.visibility_of_element_located((By.NAME,
         "session[password]")))
-    password_input.send_keys(password)
+    password_input.send_keys(self.password)
 
     # Push login button
     login_button = WAIT.until(ec.visibility_of_element_located((By.XPATH,
@@ -70,7 +64,7 @@ def login_twitter():
     login_button.click()
 
 
-def tweet_text(text):
+def tweet_text(self, text):
     ''' Make a tweet '''
     # Find text span
     tweet_text_span = DRIVER.find_element_by_xpath(
