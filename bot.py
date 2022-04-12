@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.utils import ChromeType
+from time import sleep
 
 
 class TheBot:
@@ -40,26 +41,48 @@ class TheBot:
 
     def login_to_twitter(self):
         """Login to twitter account"""
+        driver = self.driver
+        username = self.username
+        password = self.password
+        wait = self.wait
+
+        driver.get("https://twitter.com/login")
+        """
+        driver.find_element_by_xpath('//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[5]/label/div/div[2]/div/input').send_keys(username)
         
+        driver.find_element_by_xpath('//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[6]').click()
 
-        self.driver.get("https://twitter.com/login")
+        driver.find_element_by_xpath('//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[2]/div[1]/input').send_keys(password)
 
-        # Input username
-        username_input = self.wait.until(
-            ec.visibility_of_element_located((By.NAME, "session[username_or_email]"))
-        )
-        username_input.send_keys(self.username)
+        driver.find_element_by_xpath('//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div').click()
+        """
 
-        # Input password
-        password_input = self.wait.until(
-            ec.visibility_of_element_located((By.NAME, "session[password]"))
-        )
-        password_input.send_keys(self.password)
-
-        # Push login button
-        login_button = self.wait.until(
+        
+        username_field = wait.until(
             ec.visibility_of_element_located(
-                (By.XPATH, "//div[@data-testid='LoginForm_Login_Button']")
+                (By.XPATH, '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[5]/label/div/div[2]/div/input')
+            )
+        )
+        username_field.send_keys(username)
+        
+        next_button = wait.until(
+            ec.element_to_be_clickable(
+                (By.XPATH,'//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[6]')
+            )
+        )
+        next_button.click()
+        
+        password_field = wait.until(
+            ec.visibility_of_element_located(
+                (By.XPATH, '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[2]/div[1]/input')
+            )
+        )
+        password_field.send_keys(password)
+                 
+        
+        login_button = wait.until(
+            ec.element_to_be_clickable(
+                (By.XPATH, '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div')
             )
         )
         login_button.click()
@@ -67,17 +90,20 @@ class TheBot:
 
     def tweet_text(self, text):
         """Make a tweet"""
-        # Find text span
-        tweet_text_span = self.driver.find_element_by_xpath(
-            "//div[@data-testid='tweetTextarea_0']/div/div/div/span"
-        )
 
-        # Input text
-        tweet_text_span.send_keys(text)
+        wait = self.wait
+        driver = self.driver
+
+        tweet_field = wait.until(
+            ec.visibility_of_element_located(
+                (By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div/div/div/div/div/span/span')
+            )
+        )
+        tweet_field.send_keys(text)
 
         # Locate button
         tweet_button = self.wait.until(
-            ec.visibility_of_element_located(
+            ec.element_to_be_clickable(
                 (By.XPATH, "//div[@data-testid='tweetButtonInline']")
             )
         )
