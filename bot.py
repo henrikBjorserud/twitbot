@@ -3,7 +3,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.action_chains import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.utils import ChromeType
 from time import sleep
@@ -28,7 +30,7 @@ class TheBot:
         """Setup webdriver, download chromedriver"""
 
         chrome_options = Options()
-        chrome_options.add_argument('--user-data-dir=/home/henrik/Desktop/temp')
+        chrome_options.add_argument('--user-data-dir=/home/plejd/Desktop/temp')
         chrome_options.add_argument('--remote-debugging-port-9222')
         self.driver = webdriver.Chrome(options = chrome_options,
             service=Service(
@@ -47,17 +49,9 @@ class TheBot:
         wait = self.wait
 
         driver.get("https://twitter.com/login")
+
+
         """
-        driver.find_element_by_xpath('//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[5]/label/div/div[2]/div/input').send_keys(username)
-        
-        driver.find_element_by_xpath('//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[6]').click()
-
-        driver.find_element_by_xpath('//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[2]/div[1]/input').send_keys(password)
-
-        driver.find_element_by_xpath('//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div').click()
-        """
-
-        
         username_field = wait.until(
             ec.visibility_of_element_located(
                 (By.XPATH, '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[5]/label/div/div[2]/div/input')
@@ -86,27 +80,35 @@ class TheBot:
             )
         )
         login_button.click()
-
+        """
 
     def tweet_text(self, text):
         """Make a tweet"""
 
         wait = self.wait
         driver = self.driver
+       
+        login_button = wait.until(
+            ec.element_to_be_clickable(
+                (By.XPATH, '/html/body/div[1]/div/div/div[2]/header/div/div/div/div[1]/div[3]/a')
+            )
+        )
+        login_button.click()       
+
+
 
         tweet_field = wait.until(
             ec.visibility_of_element_located(
-                (By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div/div/div/div/div/span/span')
+                (By.XPATH, '/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[3]/div/div[1]/div/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div[2]/div/div/div/div')
             )
         )
         tweet_field.send_keys(text)
 
         # Locate button
-        tweet_button = self.wait.until(
-            ec.element_to_be_clickable(
-                (By.XPATH, "//div[@data-testid='tweetButtonInline']")
-            )
-        )
+        
+        actions = ActionChains(driver)
+        actions.send_keys(Keys.TAB * 8, Keys.RETURN)
+        actions.perform()
 
-        # Push button
-        tweet_button.click()
+        # Push button 
+        sleep(5)

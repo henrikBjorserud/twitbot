@@ -11,7 +11,7 @@ def compose():
         lines = pickle.load(f)
     random_number = int(quantumrandom.randint(0, len(lines)))
     line = lines.pop(random_number)
-    tweet = line + " " + hashtag
+    tweet = line + " " + hashtag + " #gpt2"
     repickle(lines)
     return tweet
 
