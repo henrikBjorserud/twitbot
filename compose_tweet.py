@@ -1,5 +1,4 @@
 import pickle
-from random import randint
 import trends_api
 import quantumrandom
 
