@@ -23,7 +23,7 @@ class TheBot:
         """Setup webdriver, download chromedriver"""
 
         chrome_options = Options()
-        chrome_options.add_argument("--user-data-dir=/home/plejd/Desktop/temp")
+        chrome_options.add_argument("--user-data-dir=/home/henrik/Desktop/temp")
         chrome_options.add_argument("--remote-debugging-port-9222")
         self.driver = webdriver.Chrome(
             options=chrome_options,
@@ -42,7 +42,7 @@ class TheBot:
         wait = self.wait
 
         driver.get("https://twitter.com/login")
-
+        """
         username_field = wait.until(
             ec.visibility_of_element_located(
                 (By.XPATH, '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[5]/label/div/div[2]/div/input')
@@ -69,14 +69,14 @@ class TheBot:
                 (By.XPATH, '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div')
             )
         )
-        login_button.click()
+        login_button.click()"""
 
     def tweet_text(self, text):
         """Make a tweet"""
         wait = self.wait
         driver = self.driver
 
-        login_button = wait.until(
+        tweeta_button = wait.until(
             ec.element_to_be_clickable(
                 (
                     By.XPATH,
@@ -84,7 +84,7 @@ class TheBot:
                 )
             )
         )
-        login_button.click()
+        tweeta_button.click()
 
         tweet_field = wait.until(
             ec.visibility_of_element_located(
@@ -103,3 +103,4 @@ class TheBot:
 
         # Push button
         sleep(5)
+        driver.refresh()

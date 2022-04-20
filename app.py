@@ -15,17 +15,27 @@ def get_password():
     return username, password
 
 
-def main():
-    '''Make the bot post stuff in daytime'''
+def login_and_setup():
+    '''Make the bot post stuff'''
     username, password = get_password()
     tweet = compose_tweet.compose()
     print(tweet)
     t_bot = bot.TheBot(username, password)
     t_bot.setup_webdriver()
     t_bot.login_to_twitter()
+    t_bot.tweet_text(tweet)
 
+
+def main():
+
+    username, password = get_password()
+    t_bot = bot.TheBot(username, password)
+    t_bot.setup_webdriver()
+    t_bot.login_to_twitter()
+    
     while True:
-        t_bot.tweet_text(tweet)
+        tweet = compose_tweet.compose()
+        t_bot.tweet_text(tweet)        
         sleep(wait_randomly_or_wait_for_sunrise())
 
 
