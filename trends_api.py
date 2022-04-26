@@ -1,8 +1,18 @@
 from pytrends.request import TrendReq
 from random import randint
+import pickle
 
 PYTRENDS = TrendReq()
 
+def sports_removal(trend):
+    """Check if trend is present in list of sports."""
+
+    with open("sports.pickle", "rb") as f:
+            sports = pickle.load(f)
+
+    sports_check = any(word in trend for word in sports)
+
+    return sports_check
 
 def get_hashtag():
     """Get the hottest trends in Sweden right now and return a random one"""
@@ -11,4 +21,8 @@ def get_hashtag():
     trend = trend_list[randint(0, 10)]
     trend = trend.replace(" ", "")
     trend = f"#{trend}"
-    return trend
+    if sports_removal(trend) == True:
+        get_hashtag()
+    else:
+        return trend
+

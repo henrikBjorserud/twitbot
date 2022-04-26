@@ -17,7 +17,7 @@ def wait_randomly_or_wait_for_sunrise():
     now_hour = int(time_right_now.strftime("%H"))
     sunrise_hour = int(sr.strftime("%H")) + 2
     sunset_hour = int(ss.strftime("%H")) + 2
-    random_numbers = int(quantumrandom.randint(40, 120))
+    random_numbers = int(quantumrandom.randint(120, 240))
     seconds_to_wait = random_numbers * 60
     night_time_hours = 24 - sunset_hour + sunrise_hour
     night_time_minutes = night_time_hours * 60

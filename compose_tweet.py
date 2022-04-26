@@ -6,7 +6,7 @@ import quantumrandom
 def compose():
     """Compose a tweet from a line in the pickled file and a hashtag"""
     hashtag = trends_api.get_hashtag()
-    with open("lines.pickle", "rb") as f:
+    with open("valda_saved_lines.pickle", "rb") as f:
         lines = pickle.load(f)
     random_number = int(quantumrandom.randint(0, len(lines)))
     line = lines.pop(random_number)
