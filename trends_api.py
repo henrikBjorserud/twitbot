@@ -20,9 +20,8 @@ def get_hashtag():
     trend_list = [trends.loc[i][0] for i in range(len(trends))]
     trend = trend_list[randint(0, 10)]
     trend = trend.replace(" ", "")
+    trend = trend.lstrip("1234567890")
     trend = f"#{trend}"
-    if sports_removal(trend) == True:
-        get_hashtag()
-    else:
-        return trend
+    
+    return trend
 

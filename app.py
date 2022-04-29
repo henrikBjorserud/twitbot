@@ -6,7 +6,7 @@ from time import sleep
 
 
 def get_password():
-    '''Get pickled password and username'''
+    """Get pickled password and username"""
     with open("login.pickle", "rb") as f:
         login = pickle.load(f)
 
@@ -16,7 +16,7 @@ def get_password():
 
 
 def login_and_setup():
-    '''Make the bot post stuff'''
+    """Make the bot post stuff"""
     username, password = get_password()
     tweet = compose_tweet.compose()
     print(tweet)
@@ -28,14 +28,15 @@ def login_and_setup():
 
 def main():
 
+    pickled_file = "valda_saved_lines.pickle"
     username, password = get_password()
     t_bot = bot.TheBot(username, password)
     t_bot.setup_webdriver()
     t_bot.login_to_twitter()
-    
+
     while True:
-        tweet = compose_tweet.compose()
-        t_bot.tweet_text(tweet)        
+        text_to_tweet = compose_tweet.compose(pickled_file)
+        t_bot.tweet_text(text_to_tweet)
         sleep(wait_randomly_or_wait_for_sunrise())
 
 
