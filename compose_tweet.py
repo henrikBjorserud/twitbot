@@ -3,7 +3,7 @@ import trends_api
 import quantumrandom
 
 
-def get_quantumramdom_number(number_of_lines):
+def get_quantum_random_number(number_of_lines):
     """Get a truely random number between 0 and the number of lines."""
     random_number = int(quantumrandom.randint(0, number_of_lines))
     return random_number
@@ -22,11 +22,11 @@ def repickle(pickled_file, lines):
         pickle.dump(lines, f)
 
 
-def compose(pickled_file):
+def compose(trend_list, pickled_file):
     """Compose a tweet from a line in the pickled file and a hashtag"""
-    hashtag = trends_api.get_hashtag()
+    hashtag = trends_api.parse_hashtag(trend_list)
     lines = unpickle(pickled_file)
-    random_number = get_quantumramdom_number(len(lines))
+    random_number = get_quantum_random_number(len(lines))
     line = lines.pop(random_number)
     text_to_tweet = line + " " + hashtag + " #gpt2"
     repickle(pickled_file, lines)

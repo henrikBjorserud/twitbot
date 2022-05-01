@@ -3,6 +3,7 @@ from timing import wait_randomly_or_wait_for_sunrise
 import bot
 import pickle
 from time import sleep
+import trends_api
 
 
 def get_password():
@@ -15,17 +16,6 @@ def get_password():
     return username, password
 
 
-def login_and_setup():
-    """Make the bot post stuff"""
-    username, password = get_password()
-    tweet = compose_tweet.compose()
-    print(tweet)
-    t_bot = bot.TheBot(username, password)
-    t_bot.setup_webdriver()
-    t_bot.login_to_twitter()
-    t_bot.tweet_text(tweet)
-
-
 def main():
 
     pickled_file = "valda_saved_lines.pickle"
@@ -35,7 +25,8 @@ def main():
     t_bot.login_to_twitter()
 
     while True:
-        text_to_tweet = compose_tweet.compose(pickled_file)
+        trend_list = trends_api.get_trends()
+        text_to_tweet = compose_tweet.compose(trend_list, pickled_file)
         t_bot.tweet_text(text_to_tweet)
         sleep(wait_randomly_or_wait_for_sunrise())
 
