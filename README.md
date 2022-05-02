@@ -24,8 +24,8 @@ $ git clone https://github.com/henrikBjorserud/twitbot.git
 $ cd twitbot
 $
 $ # Virtualenv modules installation (Unix based systems)
-$ python3 -m venv "pcb-anodet-server-env"
-$ source pcb-anodet-server-env/bin/activate
+$ python3 -m venv "twitbot-env"
+$ source twitbot-env/bin/activate
 $
 $ # Install requirements
 $ pip3 install -r requirements.txt
