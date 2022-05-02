@@ -1,0 +1,13 @@
+Copyright © 2000 Henrik Björserud <henrikbjorserud@gmail.com>
+
+This work uses used the pretrained model from Svensk Sci Fi.
+See their LICENSE for more info about that:
+https://github.com/svenskscifi/karinboye/blob/master/LICENSE.txt
+
+The GPT-2 was also used and that LICENSE can be found here:
+https://github.com/openai/gpt-2/blob/master/LICENSE
+
+As for the bot, the composer and the timer written by me:
+This work is free. You can redistribute it and/or modify it under the
+terms of the Do What The Fuck You Want To Public License, Version 2,
+as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
