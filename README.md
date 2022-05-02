@@ -1,6 +1,7 @@
 
-# A selenium bot that twwets lines generated in a gpt-2-model
+# A selenium bot that tweets by day
 
+The texts that are tweeted is generated with gpt-2.
 I used a model pre-trained on swedish texts and poetry from Svensk Sci Fi and fine tuned it on my instagram posts to make it write more like me. The bot class logs in to twitter and post tweets, the composing module puts a generated, randomly selected string of text together with a trending subject as a hashtag together. The timing module uses quantum random to time the tweeting intervals. It also checks if the sun is up because it will only post by day. There is also a test module for testing the composing module. The model that i finetuned is to big to be included here but You can download the Karin Boye-model here <a href="http://www.svenskscifi.se/KarinBoye/checkpoint_PretrainedGPT-2KarinBoye.tar">PretrainedGPT-2KarinBoye</a> (9.95 GB) and then test it by running it at this free google colab resource <a href="https://colab.research.google.com/drive/1VLG8e7YSEwypxU-noRNhsv5dW4NfTGce">Run a GPT-2 Text-Generating Model</a> and finetune it to your own tweets.
 <br />
 
