@@ -12,7 +12,7 @@ I used a model pre-trained on swedish texts and poetry from Svensk Sci Fi and fi
 
 <br />
 
-![The bot in action](twitbot/Media/Peek202205021320.gif)
+![The bot in action](Media/Peek202205021320.gif)
 
 <br />
 
